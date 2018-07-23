@@ -71,6 +71,8 @@ class CokeCanPickAndPlace:
         self._pose_place.position.z = self._pose_coke_can.position.z
 
         self._pose_place.orientation = Quaternion(*quaternion_from_euler(0.0, 0.0, 0.0))
+        
+        rospy.loginfo('x = %f, y = %f, z = %f', self._pose_place.position.x, self._pose_place.position.y, self._pose_place.position.z)
 
         # Retrieve groups (arm and gripper):
         self._arm     = self._robot.get_group(self._arm_group)

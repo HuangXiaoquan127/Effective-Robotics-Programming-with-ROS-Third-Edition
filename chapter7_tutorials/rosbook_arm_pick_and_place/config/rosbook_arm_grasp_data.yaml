@@ -1,6 +1,6 @@
 base_link: base_link
 
-end_effector:
+gripper:
   end_effector_name: gripper
 
   # Default grasp params
