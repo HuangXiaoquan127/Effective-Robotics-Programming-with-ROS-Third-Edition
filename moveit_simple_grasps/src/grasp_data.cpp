@@ -81,7 +81,7 @@ bool GraspData::loadRobotGraspData(const ros::NodeHandle& nh, const std::string&
   nh.getParam("base_link", base_link_);
 
   // Search within the sub-namespace of this end effector name
-  ros::NodeHandle child_nh(nh, end_effector);
+  ros::NodeHandle child_nh(nh, "gripper");
 
   // Load a param
   if (!child_nh.hasParam("pregrasp_time_from_start"))
@@ -116,13 +116,13 @@ bool GraspData::loadRobotGraspData(const ros::NodeHandle& nh, const std::string&
   child_nh.getParam("end_effector_parent_link", end_effector_parent_link);
 
   // Load a param
-  if (!child_nh.hasParam("joints"))
+  if (!child_nh.hasParam("joint_list"))
   {
-    ROS_ERROR_STREAM_NAMED("grasp_data_loader","Grasp configuration parameter `joints` missing from rosparam server. Did you load your end effector's configuration yaml file?");
+    ROS_ERROR_STREAM_NAMED("grasp_data_loader","Grasp configuration parameter `joint_list` missing from rosparam server. Did you load your end effector's configuration yaml file?");
     return false;
   }
   XmlRpc::XmlRpcValue joint_list;
-  child_nh.getParam("joints", joint_list);
+  child_nh.getParam("joint_list", joint_list);
   if (joint_list.getType() == XmlRpc::XmlRpcValue::TypeArray)
     for (int32_t i = 0; i < joint_list.size(); ++i)
     {
@@ -175,9 +175,9 @@ bool GraspData::loadRobotGraspData(const ros::NodeHandle& nh, const std::string&
       grasp_pose_to_eef.push_back(static_cast<double>(g_to_eef_list[i]));
   }
 
-  ROS_ASSERT(child_nh.hasParam("grasp_pose_to_eef_rotation"));
+  ROS_ASSERT(child_nh.hasParam("grasp_pose_to_eef_rotation_alias"));
   XmlRpc::XmlRpcValue g_to_eef_rotation_list;
-  child_nh.getParam("grasp_pose_to_eef_rotation", g_to_eef_rotation_list);
+  child_nh.getParam("grasp_pose_to_eef_rotation_alias", g_to_eef_rotation_list);
   ROS_ASSERT(g_to_eef_rotation_list.getType() == XmlRpc::XmlRpcValue::TypeArray);
   for (int32_t i = 0; i < g_to_eef_rotation_list.size(); ++i)
   {
