@@ -42,12 +42,14 @@ int main(int argc, char **argv)
         display_msg.trajectory_start = goal_plan.start_state_;
         display_msg.trajectory.push_back(goal_plan.trajectory_);
         display_pub.publish(display_msg);
-
+		ROS_INFO_STREAM("Target pose: " << plan_group.getPoseTarget());
+		
         sleep(5.0);
 
         plan_group.move();
     }
-
+	
+	ROS_INFO_STREAM("Current pose: " << plan_group.getCurrentPose());
     ros::shutdown();
 
     return 0;
