@@ -1,6 +1,14 @@
 # Effective Robotics Programming with ROS - Third Edition - Chapter 7 tutorials : ROS arm in MoveIt! #
 
 ## Launch MoveIt! ##
+- Install the moveit!
+	```
+	$ sudo apt-get install ros-kinetic-moveit
+	```
+- Dependency package:
+ 	```
+ 	sudo apt-get install ros-kinetic-moveit-visual-tools
+ 	```
 
 * For a kinematic version (very fast) without controllers:
 
